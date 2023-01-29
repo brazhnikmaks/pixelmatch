@@ -9,8 +9,7 @@ const defaultOptions = {
     aaColor: [255, 255, 0], // color of anti-aliased pixels in diff output
     diffColor: [255, 0, 0], // color of different pixels in diff output
     diffColorAlt: null,     // whether to detect dark on light differences between img1 and img2 and set an alternative color to differentiate between the two
-    diffMask: false,        // draw the diff over a transparent background (a mask)
-    onDiffPixel: null       // on diff pixel callback
+    diffMask: false         // draw the diff over a transparent background (a mask)
 };
 
 function pixelmatch(img1, img2, output, width, height, options) {
@@ -70,11 +69,6 @@ function pixelmatch(img1, img2, output, width, height, options) {
                         drawPixel(output, pos, ...(delta < 0 && options.diffColorAlt || options.diffColor));
                     }
                     diff++;
-
-                    //callback on each pixel diff (in my case i need to check color of diff pixels)
-                    if(options.onDiffPixel) {
-                      options.onDiffPixel([img1[pos + 0], img1[pos + 1], img1[pos + 2], img1[pos + 3]], [img2[pos + 0], img2[pos + 1], img2[pos + 2], img2[pos + 3]])
-                    }
                 }
 
             } else if (output) {
